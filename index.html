@@ -15,7 +15,7 @@
         <div class="container">
             <div class="columns is-5-tablet is-4-desktop is-3-widescreen has-text-centered">
                 <div class="column is-6 is-offset-one-quarter">
-                    <form class="box" action="/App/Commands/sendEmail.php" method="post" @submit.prevent="sendEmail">
+                    <form class="box" @submit.prevent="sendEmail">
                         <div class="notification is-success" v-if="message">
                             <button class="delete" @click.prevent="clearMessage"></button>
                             {{ message }}
@@ -36,19 +36,6 @@
                                     <i class="fa fa-envelope"></i>
                                 </span>
                             </div>
-                        </div>
-                        <div class="control">
-                            <div>
-                                <strong>Choose a queue: </strong>
-                            </div>
-                            <label class="radio">
-                                <input type="radio" value="default" v-model="queue">
-                                default
-                            </label>
-                            <label class="radio">
-                                <input type="radio" value="queue_2" v-model="queue">
-                                queue_2
-                            </label>
                         </div>
                         <div class="field">
                             <button type="submit" class="button is-success">
@@ -72,7 +59,6 @@
         el: '#app',
         data: {
             email: '',
-            queue: 'default',
             loading: false,
             message: null
         },
@@ -85,7 +71,7 @@
                     headers: {
                         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
                     },
-                    body: `email_address=${this.email}&queue=${this.queue}`
+                    body: `email_address=${this.email}`
                 })
                 .then(() => {
                     this.loading = false

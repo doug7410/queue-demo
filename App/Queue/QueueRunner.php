@@ -2,25 +2,17 @@
 
 namespace App\Queue;
 
-
 use App\Database\DB;
 
 class QueueRunner
 {
-    private $queue;
-
-    public function __construct($queue = null)
-    {
-        $this->queue = $queue ?: 'default';
-    }
-
     public function run()
     {
         $db = new DB();
 
         while (true) {
             $job = $db->connection->query(
-                "SELECT * FROM jobs WHERE running = 0 AND queue = '{$this->queue}' ORDER BY created_at LIMIT 1"
+                "SELECT * FROM jobs WHERE running = 0 ORDER BY created_at LIMIT 1"
             )->fetchObject();
 
             if(!$job){
