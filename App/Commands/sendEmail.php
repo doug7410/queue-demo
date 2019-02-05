@@ -1,9 +1,5 @@
 <?php
 
-include __DIR__ . '/../../vendor/autoload.php';
-
-use \App\Jobs\SendEmailJob;
-
-SendEmailJob::dispatch($_POST['email_address']);
+sleep(5); // do some work to send the email
 
 echo json_encode(['success']);
