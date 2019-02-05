@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Queue Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+<body>
+
+<section class="hero is-primary is-fullheight" id="app">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-5-tablet is-4-desktop is-3-widescreen has-text-centered">
+                <div class="column is-6 is-offset-one-quarter">
+                    <form class="box" action="/App/Commands/sendEmail.php" method="post" @submit.prevent="sendEmail">
+                        <div class="notification is-success" v-if="message">
+                            <button class="delete" @click.prevent="clearMessage"></button>
+                            {{ message }}
+                        </div>
+                        <div class="field has-text-centered">
+                            <h1 class="title has-text-primary">Sign Up Now!</h1>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control has-icons-left">
+                                <input  name="email"
+                                        v-model="email"
+                                        class="input"
+                                        placeholder="e.g. hkakehas@cisco.com"
+                                        required
+                                >
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div>
+                                <strong>Choose a queue: </strong>
+                            </div>
+                            <label class="radio">
+                                <input type="radio" value="default" v-model="queue">
+                                default
+                            </label>
+                            <label class="radio">
+                                <input type="radio" value="queue_2" v-model="queue">
+                                queue_2
+                            </label>
+                        </div>
+                        <div class="field">
+                            <button type="submit" class="button is-success">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-if="loading">
+        <div class="loader"></div>
+        <div class="overlay"></div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            email: '',
+            queue: 'default',
+            loading: false,
+            message: null
+        },
+        methods: {
+            sendEmail() {
+                this.loading = true
+
+                fetch('/App/Commands/sendEmail.php', {
+                    method: 'post',
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: `email_address=${this.email}&queue=${this.queue}`
+                })
+                .then(() => {
+                    this.loading = false
+                    this.message = 'Thank you for signing up!'
+                })
+            },
+            clearMessage()
+            {
+                this.message = null
+            }
+        }
+    })
+</script>
+</body>
+</html>
