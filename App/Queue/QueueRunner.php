@@ -16,10 +16,8 @@ class QueueRunner
 
     public function run()
     {
-        $db = new DB();
-
         while (true) {
-            $job = $db->connection->query(
+            $job = DB::connection()->query(
                 "SELECT * FROM jobs WHERE running = 0 AND queue = '{$this->queue}' ORDER BY created_at LIMIT 1"
             )->fetchObject();
 
@@ -28,7 +26,7 @@ class QueueRunner
                 continue;
             }
 
-            $db->connection->query("UPDATE jobs SET running = 1 WHERE id = '{$job->id}'");
+            DB::connection()->query("UPDATE jobs SET running = 1 WHERE id = '{$job->id}'");
             $jobObject = unserialize($job->payload)['job'];
             $jobClass = get_class($jobObject);
 
@@ -41,8 +39,7 @@ class QueueRunner
                 echo "[".date('Y-m-d H:i:s')."][{$job->id}] Job {$jobClass} failed: {$e->getMessage()} \r\n";
             }
 
-            $db->connection->query("DELETE FROM jobs WHERE id = {$job->id}");
+            DB::connection()->query("DELETE FROM jobs WHERE id = {$job->id}");
         }
-
     }
 }

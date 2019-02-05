@@ -22,9 +22,8 @@ class Dispatcher
 
     public function __destruct()
     {
-        $db = new DB();
         $payload = serialize(['job' => $this->job]);
-        $query = $db->connection->prepare("INSERT INTO jobs (queue, payload) VALUES (?, ?)");
+        $query = DB::connection()->prepare("INSERT INTO jobs (queue, payload) VALUES (?, ?)");
         $query->execute([$this->queue, $payload]);
     }
 }
