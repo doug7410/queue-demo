@@ -29,7 +29,7 @@ class ImportProductsJob implements JobInterface
             $query->execute($values);
             $productId = DB::connection()->lastInsertId();
             $image = $values[2];
-            ProcessImageJob::dispatch($image, $productId);
+            ProcessImageJob::dispatch($image, $productId); //->onQueue('products');
         }
     }
 
