@@ -2,23 +2,11 @@
 
 include __DIR__ . '/../../vendor/autoload.php';
 
-use App\Database\DB;
+use App\Jobs\ImportTransactionsJob;
 
 $file = __DIR__.'/../../files/transactions.csv';
 
-
-for($i=0; $i<5; $i++) {
-    $csv = array_map('str_getcsv', file($file));
-    $headerRow = array_shift($csv);
-
-    foreach ($csv as $values) {
-        $fields = implode(',',$headerRow);
-
-        $query = DB::connection()->prepare(
-            "INSERT INTO transactions ({$fields}) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
-        );
-        $query->execute($values);
-    }
-
-    echo 'done inserting ' . count($csv) . " transactions \r\n";
+for($i=0; $i<10; $i++) {
+    ImportTransactionsJob::dispatch($file);//->onQueue('queue_2');
+    echo "sent file to the queue for processing \r\n";
 }
