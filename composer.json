@@ -4,5 +4,8 @@
     "psr-4": {
       "App\\": "App/"
     }
+  },
+  "require": {
+    "xobotyi/beansclient": "^1.0"
   }
 }

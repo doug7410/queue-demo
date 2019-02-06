@@ -20,10 +20,15 @@ class Dispatcher
         $this->queue = $queue;
     }
 
+    /**
+     * @throws \xobotyi\beansclient\Exception\Client
+     * @throws \xobotyi\beansclient\Exception\Command
+     * @throws \xobotyi\beansclient\Exception\Connection
+     * @throws \xobotyi\beansclient\Exception\Job
+     */
     public function __destruct()
     {
         $payload = serialize(['job' => $this->job]);
-        $query = DB::connection()->prepare("INSERT INTO jobs (queue, payload) VALUES (?, ?)");
-        $query->execute([$this->queue, $payload]);
+        DB::connection()->useTube($this->queue)->put($payload);
     }
 }

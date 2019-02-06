@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "55e8e986dc0423d55ec94eb7e2937cd9",
+    "packages": [
+        {
+            "name": "xobotyi/beansclient",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xobotyi/beansclient.git",
+                "reference": "7ebb788d686db224b4333470c8f9a59ae0fcea40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xobotyi/beansclient/zipball/7ebb788d686db224b4333470c8f9a59ae0fcea40",
+                "reference": "7ebb788d686db224b4333470c8f9a59ae0fcea40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.4.0",
+                "phpunit/phpunit": "^6.5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "xobotyi\\beansclient\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Zinovyev",
+                    "email": "xog3@yandex.ru",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP7.1+ client for beanstalkd work queue with no dependencies",
+            "homepage": "https://github.com/xobotyi/beansclient",
+            "keywords": [
+                "beanstalk",
+                "beanstalkd",
+                "client",
+                "php",
+                "queue"
+            ],
+            "time": "2018-04-20T11:39:50+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
