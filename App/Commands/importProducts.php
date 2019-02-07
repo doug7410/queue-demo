@@ -7,11 +7,8 @@ use App\Database\DB;
 $file = __DIR__.'/../../files/products.csv';
 
 $csv = array_map('str_getcsv', file($file));
-$headerRow = array_shift($csv);
 
 foreach ($csv as $values) {
-    $fields = implode(',',$headerRow);
-
     $query = DB::connection()->prepare(
         "INSERT INTO products (name, price, image) VALUES (?,?,?)"
     );
