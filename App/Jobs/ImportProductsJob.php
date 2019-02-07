@@ -20,7 +20,6 @@ class ImportProductsJob implements JobInterface
     public function handle()
     {
         $csv = array_map('str_getcsv', file($this->file));
-        array_shift($csv); // remove the header row
 
         foreach ($csv as $values) {
             $query = DB::connection()->prepare(
